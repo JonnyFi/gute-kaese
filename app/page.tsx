@@ -13,11 +13,11 @@ type Result = {
 
 const EXAMPLES = [
   "Camembert",
-  "Montag",
-  "Ein Döner um 3 Uhr nachts",
+  "Monday",
+  "A döner at 3 am",
   "Donald Trump",
-  "Das Fahrrad vom Nachbarn klauen",
-  "Ausschlafen",
+  "Stealing the neighbor's bike",
+  "Sleeping in",
 ];
 
 const DEBOUNCE_MS = 650;
@@ -28,12 +28,12 @@ function tierHeadline(score: number): string {
 }
 
 function tierNote(score: number): string {
-  if (score >= 0.85) return "Sensationelle Käse.";
-  if (score >= 0.65) return "Gute Käse.";
-  if (score >= 0.5) return "Eher Gute Käse.";
-  if (score >= 0.35) return "Eher schlechte Käse.";
+  if (score >= 0.85) return "Sensationally Gute Käse.";
+  if (score >= 0.65) return "That's Gute Käse.";
+  if (score >= 0.5) return "Barely Gute Käse.";
+  if (score >= 0.35) return "Not quite Gute Käse.";
   if (score >= 0.15) return "Schlechte Käse.";
-  return "Kaputte Käse.";
+  return "Catastrophically schlechte Käse.";
 }
 
 export default function Home() {
@@ -61,7 +61,7 @@ export default function Home() {
       const data = await res.json();
       if (id !== reqId.current) return;
       if (!res.ok) {
-        setError(data?.error ?? "Da ist etwas schiefgelaufen.");
+        setError(data?.error ?? "Something went wrong.");
         setLoading(false);
         return;
       }
@@ -70,7 +70,7 @@ export default function Home() {
       setLoading(false);
     } catch {
       if (id !== reqId.current) return;
-      setError("Keine Verbindung zu Jev.");
+      setError("No connection to Jev.");
       setLoading(false);
     }
   }, []);
@@ -124,7 +124,7 @@ export default function Home() {
       <div className="mx-auto flex w-full max-w-2xl flex-col">
         <header className="text-center">
           <p className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-ink-soft">
-            Ein Bauchurteil von Jev
+            A gut call by Jev
           </p>
           <h1 className="mt-3 font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
             GUTE
@@ -132,8 +132,8 @@ export default function Home() {
             KÄSE?
           </h1>
           <p className="mx-auto mt-4 max-w-md text-balance text-base text-ink-soft sm:text-lg">
-            Tipp irgendwas ein. Jev entscheidet in unter einer Sekunde, ob es
-            Gute Käse ist — oder nicht.
+            Type anything. Jev decides in under a second whether it&apos;s Gute
+            Käse — or not.
           </p>
         </header>
 
@@ -144,8 +144,8 @@ export default function Home() {
               onChange={(e) => updateText(e.target.value)}
               maxLength={2000}
               autoFocus
-              placeholder="z. B. ein Döner um 3 Uhr nachts"
-              aria-label="Eingabe"
+              placeholder="e.g. a döner at 3 am"
+              aria-label="Input"
               className="w-full rounded-2xl border-2 border-ink/10 bg-white/80 px-5 py-4 font-display text-lg outline-none transition focus:border-cheese-deep focus:bg-white focus:ring-4 focus:ring-cheese/40"
             />
             <button
@@ -153,7 +153,7 @@ export default function Home() {
               disabled={text.trim().length < 2 || loading}
               className="shrink-0 rounded-2xl bg-ink px-7 py-4 font-display text-lg font-semibold text-cream transition hover:bg-ink/85 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {loading ? "Kaut…" : "Entscheiden"}
+              {loading ? "Chewing…" : "Decide"}
             </button>
           </div>
         </form>
@@ -225,11 +225,11 @@ export default function Home() {
               <p className="mt-6 font-display text-lg">
                 {tierNote(result.score)}{" "}
                 <span className="text-ink-soft">
-                  „{judged.length > 60 ? judged.slice(0, 57) + "…" : judged}“
+                  “{judged.length > 60 ? judged.slice(0, 57) + "…" : judged}”
                 </span>
               </p>
               <p className="mt-1 text-sm text-ink-soft">
-                Jevs Sicherheit: {Math.round(result.confidence * 100)} %
+                Jev&apos;s confidence: {Math.round(result.confidence * 100)} %
               </p>
             </div>
           )}
@@ -238,11 +238,11 @@ export default function Home() {
             <div className="rounded-3xl border-2 border-dashed border-ink/10 p-10 text-center text-ink-soft">
               {loading ? (
                 <span className="inline-flex items-center gap-2 font-display text-lg">
-                  <span className="animate-wiggle">🧀</span> Jev kaut noch…
+                  <span className="animate-wiggle">🧀</span> Jev is still chewing…
                 </span>
               ) : (
                 <span className="font-display text-lg">
-                  Was ist Gute Käse? Tipp los.
+                  What is Gute Käse? Start typing.
                 </span>
               )}
             </div>
@@ -250,8 +250,8 @@ export default function Home() {
         </section>
 
         <footer className="mt-10 text-center text-sm text-ink-soft">
-          Jev ist ein System-One-Modell. Keine Erklärung, nur ein Bauchurteil,
-          in rund 0,4 Sekunden. Keine Garantie.
+          Jev is a system-one model. No explanation, just a gut call, in about 0.4
+          seconds. No warranty.
         </footer>
       </div>
     </main>

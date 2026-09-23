@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
   if (rateLimited(ip)) {
     return NextResponse.json(
-      { error: "Zu viele Anfragen. Kurz warten." },
+      { error: "Too many requests. Wait a moment." },
       { status: 429 },
     );
   }
@@ -38,14 +38,14 @@ export async function POST(request: Request) {
   try {
     ({ text } = await request.json());
   } catch {
-    return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
   if (typeof text !== "string" || !text.trim()) {
-    return NextResponse.json({ error: "Bitte etwas eingeben." }, { status: 400 });
+    return NextResponse.json({ error: "Please enter something." }, { status: 400 });
   }
   if (text.length > 2000) {
-    return NextResponse.json({ error: "Zu lang. Maximal 2000 Zeichen." }, { status: 400 });
+    return NextResponse.json({ error: "Too long. Maximum 2000 characters." }, { status: 400 });
   }
 
   try {
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("judge failed", error);
     return NextResponse.json(
-      { error: "Jev antwortet gerade nicht. Nochmal versuchen." },
+      { error: "Jev isn't answering right now. Try again." },
       { status: 502 },
     );
   }

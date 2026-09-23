@@ -8,9 +8,9 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
-const title = "Gute Käse Entscheider";
+const title = "Gute Käse";
 const description =
-  "Tipp irgendwas ein und Jev entscheidet in unter einer Sekunde, ob es Gute Käse ist.";
+  "Type anything and Jev decides in under a second whether it's Gute Käse.";
 
 export const metadata: Metadata = {
   title,
@@ -22,7 +22,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body>{children}</body>
     </html>
   );

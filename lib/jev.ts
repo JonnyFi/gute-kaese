@@ -4,23 +4,23 @@
 const API_URL = "https://api.typesafe.ai/v1/systemone";
 
 const DEFINITION = [
-  "„Gute Käse“ ist ein Ausdruck der deutschen Jugendsprache aus dem Jahr 2026.",
-  "Er bedeutet: richtig gut, stabil, das feier ich.",
-  "Das Gegenteil ist „schlechte Käse“. Die Schreibweise „Gute“ statt „guter“ ist Absicht.",
-  "Es ist ein spontanes Bauchurteil über Dinge, Situationen, Ideen, Orte, Gerichte oder Handlungen –",
-  "keine Moralfrage und kein Urteil über Personen.",
+  '"Gute Käse" is German youth slang from 2026.',
+  'It means: really good, solid, I love it.',
+  'Its opposite is "schlechte Käse". The spelling "Gute" instead of "guter" is intentional.',
+  "It is a split-second gut reaction to things, situations, ideas, places, dishes or actions —",
+  "not a moral judgment and not a judgment about people.",
 ].join(" ");
 
 const INSTRUCTIONS =
   DEFINITION +
-  " Beurteile das in `eingabe` genannte Ding als genau dieses eine Ding, ohne dir eine Geschichte auszudenken.";
+  " Rate the thing named in `eingabe` as exactly that one thing, without inventing a story.";
 
 const CRITERIA = [
-  "klar schlechte Käse (z. B. Montag, Steuern, Wartezimmer beim Arzt)",
-  "eher schlechte Käse",
-  "neutral, weder noch",
-  "eher Gute Käse",
-  "klar Gute Käse (z. B. ein Döner um 3 Uhr nachts, ausschlafen, ein Kuss im Regen)",
+  "clearly schlechte Käse (e.g. Monday, taxes, the doctor's waiting room)",
+  "rather schlechte Käse",
+  "neutral, neither",
+  "rather Gute Käse",
+  "clearly Gute Käse (e.g. a döner at 3 am, sleeping in, a kiss in the rain)",
 ];
 
 export type Verdict = {
