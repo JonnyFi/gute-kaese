@@ -67,3 +67,40 @@ body {
     animation: none;
   }
 }
+
+/* Typography for the legal pages */
+.legal h2 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: 2rem;
+}
+
+.legal h3 {
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 1.25rem;
+}
+
+.legal p {
+  margin-top: 0.5rem;
+}
+
+.legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.legal li {
+  margin-top: 0.25rem;
+}
+
+.legal a {
+  text-decoration: underline;
+}
+
+.legal strong {
+  color: var(--color-ink);
+}

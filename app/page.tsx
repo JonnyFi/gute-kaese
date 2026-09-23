@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 type Verdict = "gute" | "schlechte";
 
@@ -252,8 +253,18 @@ export default function Home() {
         </section>
 
         <footer className="mt-10 text-center text-sm text-ink-soft">
-          Jev is a system-one model. No explanation, just a gut call, in about 0.4
-          seconds. No warranty.
+          <p>
+            Jev is a system-one model. No explanation, just a gut call, in about
+            0.4 seconds. No warranty.
+          </p>
+          <nav className="mt-4 flex justify-center gap-5">
+            <Link href="/impressum" className="transition hover:text-ink">
+              Impressum
+            </Link>
+            <Link href="/datenschutz" className="transition hover:text-ink">
+              Datenschutz
+            </Link>
+          </nav>
         </footer>
       </div>
     </main>
