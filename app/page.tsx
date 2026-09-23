@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ExportCard } from "@/components/export-card";
 import { nodeToPngBlob, slugify } from "@/lib/export-image";
-
-type Verdict = "gute" | "schlechte";
+import { tierHeadline, tierNote, type Verdict } from "@/lib/verdict";
 
 type Result = {
   score: number;
@@ -24,20 +23,6 @@ const EXAMPLES = [
 ];
 
 const DEBOUNCE_MS = 650;
-
-function tierHeadline(score: number): string {
-  if (score >= 0.5) return "GUTE KÄSE";
-  return "SCHLECHTE KÄSE";
-}
-
-function tierNote(score: number): string {
-  if (score >= 0.85) return "Sensationally Gute Käse.";
-  if (score >= 0.65) return "That's Gute Käse.";
-  if (score >= 0.5) return "Barely Gute Käse.";
-  if (score >= 0.35) return "Not quite Gute Käse.";
-  if (score >= 0.15) return "Schlechte Käse.";
-  return "Catastrophically schlechte Käse.";
-}
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -121,7 +106,12 @@ export default function Home() {
     setExportMsg(null);
     try {
       const blob = await nodeToPngBlob(exportRef.current);
-      if (mode === "copy") {
+      const canCopyImage =
+        typeof ClipboardItem !== "undefined" &&
+        typeof navigator !== "undefined" &&
+        !!navigator.clipboard?.write;
+
+      if (mode === "copy" && canCopyImage) {
         await navigator.clipboard.write([
           new ClipboardItem({ "image/png": blob }),
         ]);
@@ -135,7 +125,9 @@ export default function Home() {
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
-        setExportMsg("Screenshot saved");
+        setExportMsg(
+          mode === "copy" ? "Copy not supported, downloaded" : "Screenshot saved",
+        );
       }
     } catch {
       setExportMsg("Export failed");
@@ -280,13 +272,13 @@ export default function Home() {
                   {exporting ? "Creating…" : "Save screenshot"}
                 </button>
                 <button
-                  type="button"
-                  onClick={() => handleExport("copy")}
-                  disabled={exporting}
-                  className="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/40 disabled:opacity-50"
-                >
-                  Copy
-                </button>
+                    type="button"
+                    onClick={() => handleExport("copy")}
+                    disabled={exporting}
+                    className="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/40 disabled:opacity-50"
+                  >
+                    Copy
+                  </button>
                 {exportMsg && (
                   <span className="text-sm text-ink-soft">{exportMsg}</span>
                 )}

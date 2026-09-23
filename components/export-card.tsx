@@ -1,9 +1,10 @@
 import { forwardRef } from "react";
+import { tierNote, type Verdict } from "@/lib/verdict";
 
 export type ExportCardData = {
   score: number;
   confidence: number;
-  verdict: "gute" | "schlechte";
+  verdict: Verdict;
   input: string;
 };
 
@@ -12,7 +13,7 @@ export const ExportCard = forwardRef<HTMLDivElement, ExportCardData>(
   function ExportCard({ score, confidence, verdict, input }, ref) {
     const pct = Math.round(score * 100);
     const isGute = verdict === "gute";
-    const note = isGute ? "Sensationally Gute Käse." : "Catastrophically schlechte Käse.";
+    const note = tierNote(score);
     const badgeTop = isGute ? "Gute" : "Schlechte";
     const inputSize = input.length <= 60 ? 52 : input.length <= 160 ? 40 : 30;
 
