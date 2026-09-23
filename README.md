@@ -5,6 +5,10 @@ Type anything. [Jev](https://docs.typesafe.ai) (TypeSafe AI) decides in about 0.
 
 A gut call, no explanation. Built for a LinkedIn shitpost.
 
+**Live: https://gute-kaese.vercel.app**
+
+![Gute Käse](docs/screenshot.png)
+
 ## How it works
 
 - **Jev** is a system-one model. It does not generate text; it answers typed questions with
