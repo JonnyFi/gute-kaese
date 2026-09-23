@@ -135,7 +135,7 @@ export default function Home() {
           </h1>
           <p className="mx-auto mt-4 max-w-md text-balance text-base text-ink-soft sm:text-lg">
             Type anything. Jev decides in under a second whether it&apos;s Gute
-            Käse — or not.
+            Käse or not.
           </p>
         </header>
 

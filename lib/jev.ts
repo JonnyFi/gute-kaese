@@ -7,7 +7,7 @@ const DEFINITION = [
   '"Gute Käse" is German youth slang from 2026.',
   'It means: really good, solid, I love it.',
   'Its opposite is "schlechte Käse". The spelling "Gute" instead of "guter" is intentional.',
-  "It is a split-second gut reaction to things, situations, ideas, places, dishes or actions —",
+  "It is a split-second gut reaction to things, situations, ideas, places, dishes or actions,",
   "not a moral judgment and not a judgment about people.",
 ].join(" ");
 

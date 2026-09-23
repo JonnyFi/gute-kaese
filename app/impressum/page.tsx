@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
-  title: "Impressum — Gute Käse",
+  title: "Impressum · Gute Käse",
   description: "Impressum und Anbieterkennzeichnung dieser Website.",
 };
 

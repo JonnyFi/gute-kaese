@@ -13,7 +13,7 @@ A gut call, no explanation. Built for a LinkedIn shitpost.
 
 - **Jev** is a system-one model. It does not generate text; it answers typed questions with
   probabilities.
-- A single yes/no ("Is this Gute Käse?") separates nothing — Jev compresses almost everything to ~40%.
+- A single yes/no ("Is this Gute Käse?") separates nothing: Jev compresses almost everything to ~40%.
   So the app uses a **score question with five levels and anchor examples**. The score (0–4) is
   normalized to 0–1; 0.5 is the line to good.
 - Everything runs server-side in `/api/judge`. The API key never reaches the client.

@@ -1,7 +1,7 @@
 # Design notes
 
-Gute Käse is a joke site: type anything, and [Jev](https://docs.typesafe.ai) — TypeSafe's "system-one"
-model — returns a gut call in about 0.4 seconds. Above 50% it's **Gute Käse**, below it's
+Gute Käse is a joke site: type anything, and [Jev](https://docs.typesafe.ai), TypeSafe's "system-one"
+model, returns a gut call in about 0.4 seconds. Above 50% it's **Gute Käse**, below it's
 **schlechte Käse**. No explanation, just a number.
 
 ## The one interesting finding
@@ -26,12 +26,12 @@ Decision: Score question, `score / 4` normalized to 0–1, threshold 0.5.
 ## How it is built
 
 - Next.js (App Router) on Vercel
-- `lib/jev.ts` — the prompt and the API call, retries on 429/529
-- `app/api/judge/route.ts` — server-side key, input length cap, best-effort per-IP rate limit
-- `app/page.tsx` — debounced live verdict while typing, plus button/Enter, with a live scale marker
+- `lib/jev.ts`: the prompt and the API call, retries on 429/529
+- `app/api/judge/route.ts`: server-side key, input length cap, best-effort per-IP rate limit
+- `app/page.tsx`: debounced live verdict while typing, plus button/Enter, with a live scale marker
 
 ## Deliberately left out
 
 - no share links, image cards, accounts or database
-- no cookie banner — the site sets no cookies
+- no cookie banner: the site sets no cookies
 - no third-party analytics; only Vercel Web Analytics, which is cookieless and anonymized
