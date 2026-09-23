@@ -110,6 +110,7 @@ export default function Home() {
   }
 
   const isGute = result ? result.verdict === "gute" : true;
+  const pct = result ? Math.round(result.score * 100) : 0;
   const glow = !result
     ? "#ffe9c2"
     : isGute
@@ -197,23 +198,24 @@ export default function Home() {
                   {tierHeadline(result.score)}
                 </span>
                 <span className="font-display text-4xl font-bold tabular-nums sm:text-5xl">
-                  {Math.round(result.score * 100)}
+                  {pct}
                   <span className="text-xl align-top sm:text-2xl">%</span>
                 </span>
               </div>
 
               <div className="mt-6">
-                <div className="relative h-4 w-full overflow-hidden rounded-full bg-cream-deep">
+                <div className="relative h-4 w-full rounded-full bg-cream-deep">
                   <div
                     className={`h-full rounded-full transition-[width] duration-500 ease-out ${
                       isGute ? "bg-cheese-deep" : "bg-bad"
                     }`}
-                    style={{ width: `${Math.round(result.score * 100)}%` }}
+                    style={{ width: `${pct}%` }}
                   />
                   <div
-                    className="absolute top-0 h-full w-0.5 bg-ink/40"
-                    style={{ left: "50%" }}
+                    data-testid="scale-indicator"
                     aria-hidden
+                    className="absolute top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-ink shadow-md transition-[left] duration-500 ease-out"
+                    style={{ left: `clamp(0.75rem, ${pct}%, calc(100% - 0.75rem))` }}
                   />
                 </div>
                 <div className="mt-1.5 flex justify-between text-xs text-ink-soft">
