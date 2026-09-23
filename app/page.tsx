@@ -100,34 +100,52 @@ export default function Home() {
     updateText(value);
   }
 
-  async function handleExport(mode: "download" | "copy") {
+  async function handleExport(mode: "share" | "copy") {
     if (!exportRef.current || !result || exporting) return;
     setExporting(true);
     setExportMsg(null);
     try {
       const blob = await nodeToPngBlob(exportRef.current);
-      const canCopyImage =
-        typeof ClipboardItem !== "undefined" &&
-        typeof navigator !== "undefined" &&
-        !!navigator.clipboard?.write;
+      const filename = `gute-kaese-${slugify(judged)}.png`;
 
-      if (mode === "copy" && canCopyImage) {
-        await navigator.clipboard.write([
-          new ClipboardItem({ "image/png": blob }),
-        ]);
-        setExportMsg("Copied to clipboard");
-      } else {
+      const download = () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `gute-kaese-${slugify(judged)}.png`;
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
-        setExportMsg(
-          mode === "copy" ? "Copy not supported, downloaded" : "Screenshot saved",
-        );
+      };
+
+      if (mode === "copy") {
+        const canCopyImage =
+          typeof ClipboardItem !== "undefined" && !!navigator.clipboard?.write;
+        if (canCopyImage) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+          setExportMsg("Copied to clipboard");
+        } else {
+          download();
+          setExportMsg("Copy not supported, downloaded");
+        }
+        return;
+      }
+
+      // Share: use the native share sheet when it can take an image file,
+      // otherwise fall back to a plain download.
+      const file = new File([blob], filename, { type: "image/png" });
+      if (navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: "Gute Käse" });
+        } catch (err) {
+          if ((err as Error).name !== "AbortError") throw err;
+        }
+      } else {
+        download();
+        setExportMsg("Screenshot saved");
       }
     } catch {
       setExportMsg("Export failed");
@@ -265,11 +283,11 @@ export default function Home() {
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <button
                   type="button"
-                  onClick={() => handleExport("download")}
+                  onClick={() => handleExport("share")}
                   disabled={exporting}
                   className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream transition hover:bg-ink/85 disabled:opacity-50"
                 >
-                  {exporting ? "Creating…" : "Save screenshot"}
+                  {exporting ? "Creating…" : "Share"}
                 </button>
                 <button
                     type="button"

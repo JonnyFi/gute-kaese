@@ -29,7 +29,7 @@ Decision: Score question, `score / 4` normalized to 0–1, threshold 0.5.
 - `lib/jev.ts`: the prompt and the API call, retries on 429/529
 - `app/api/judge/route.ts`: server-side key, input length cap, best-effort per-IP rate limit
 - `app/page.tsx`: debounced live verdict while typing, plus button/Enter, with a live scale marker
-- `components/export-card.tsx` + `lib/export-image.ts`: a screenshot export runs entirely in the browser (`html-to-image`). It renders an off-screen card with the full input wrapped, a "certified" stamp and a `gute-kaese.vercel.app` watermark, then offers Download or Copy-to-clipboard. No backend.
+- `components/export-card.tsx` + `lib/export-image.ts`: a screenshot export runs entirely in the browser (`html-to-image`). It renders an off-screen card with the full input wrapped, a "certified" stamp and a `gute-kaese.vercel.app` watermark, then offers Share (native share sheet, falling back to a download) or Copy-to-clipboard. No backend.
 
 ## Deliberately left out
 
