@@ -33,7 +33,7 @@ export type Verdict = {
 };
 
 function clampText(text: string): string {
-  return text.replace(/\s+/g, " ").trim().slice(0, 500);
+  return text.replace(/\s+/g, " ").trim().slice(0, 2000);
 }
 
 async function callJev(text: string, apiKey: string): Promise<Verdict> {
