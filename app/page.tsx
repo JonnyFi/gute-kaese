@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ExportCard } from "@/components/export-card";
+import { nodeToPngBlob, slugify } from "@/lib/export-image";
 
 type Verdict = "gute" | "schlechte";
 
@@ -43,9 +45,12 @@ export default function Home() {
   const [judged, setJudged] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
+  const [exportMsg, setExportMsg] = useState<string | null>(null);
 
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reqId = useRef(0);
+  const exportRef = useRef<HTMLDivElement>(null);
 
   const run = useCallback(async (value: string) => {
     const clean = value.trim();
@@ -108,6 +113,36 @@ export default function Home() {
 
   function pickExample(value: string) {
     updateText(value);
+  }
+
+  async function handleExport(mode: "download" | "copy") {
+    if (!exportRef.current || !result || exporting) return;
+    setExporting(true);
+    setExportMsg(null);
+    try {
+      const blob = await nodeToPngBlob(exportRef.current);
+      if (mode === "copy") {
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
+        setExportMsg("Copied to clipboard");
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `gute-kaese-${slugify(judged)}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        setExportMsg("Screenshot saved");
+      }
+    } catch {
+      setExportMsg("Export failed");
+    } finally {
+      setExporting(false);
+      window.setTimeout(() => setExportMsg(null), 2500);
+    }
   }
 
   const isGute = result ? result.verdict === "gute" : true;
@@ -234,6 +269,28 @@ export default function Home() {
               <p className="mt-1 text-sm text-ink-soft">
                 Jev&apos;s confidence: {Math.round(result.confidence * 100)} %
               </p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleExport("download")}
+                  disabled={exporting}
+                  className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-cream transition hover:bg-ink/85 disabled:opacity-50"
+                >
+                  {exporting ? "Creating…" : "Save screenshot"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleExport("copy")}
+                  disabled={exporting}
+                  className="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/40 disabled:opacity-50"
+                >
+                  Copy
+                </button>
+                {exportMsg && (
+                  <span className="text-sm text-ink-soft">{exportMsg}</span>
+                )}
+              </div>
             </div>
           )}
 
@@ -266,6 +323,26 @@ export default function Home() {
             </Link>
           </nav>
         </footer>
+
+        {result && (
+          <div
+            aria-hidden
+            style={{
+              position: "fixed",
+              left: -200000,
+              top: 0,
+              pointerEvents: "none",
+            }}
+          >
+            <ExportCard
+              ref={exportRef}
+              score={result.score}
+              confidence={result.confidence}
+              verdict={result.verdict}
+              input={judged}
+            />
+          </div>
+        )}
       </div>
     </main>
   );

@@ -18,6 +18,7 @@ A gut call, no explanation. Built for a LinkedIn shitpost.
   normalized to 0–1; 0.5 is the line to good.
 - Everything runs server-side in `/api/judge`. The API key never reaches the client.
 - The verdict updates as you type (650 ms debounce) or on Enter/button.
+- The result can be exported as a PNG **entirely in the browser** (download or copy to clipboard), with a "certified" stamp and a URL watermark. Long inputs wrap fully so nothing is cut off.
 
 The prompt lives in `lib/jev.ts`, the route in `app/api/judge/route.ts`, the UI in `app/page.tsx`.
 
