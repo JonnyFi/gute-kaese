@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fff6e3;
+  --color-cream-deep: #ffe9c2;
+  --color-ink: #2a1f16;
+  --color-ink-soft: #6b5a49;
+  --color-cheese: #ffc93c;
+  --color-cheese-deep: #f0a500;
+  --color-good: #1f9d55;
+  --color-bad: #8a8f98;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+/* A soft, warm backdrop that shifts with the verdict. */
+.stage {
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--stage-glow, #ffe9c2) 0%, transparent 60%),
+    var(--color-cream);
+  transition: background 500ms ease;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 320ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@keyframes grain-shift {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+.animate-wiggle {
+  animation: grain-shift 900ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in,
+  .animate-wiggle {
+    animation: none;
+  }
+}
