@@ -45,10 +45,11 @@ export default function DatenschutzPage() {
         Abschnitt 5).
       </p>
       <p>
-        <strong>Cookies und Tracking:</strong> Diese Website setzt keine Cookies
-        und verwendet keine Analyse-, Werbe- oder Tracking-Dienste. Es werden
-        auch keine externen Schriftarten oder Skripte Dritter im Browser
-        geladen.
+        <strong>Cookies und Tracking:</strong> Diese Website setzt keine
+        Cookies. Zur anonymisierten Reichweitenmessung nutzen wir Vercel Web
+        Analytics (siehe Abschnitt 4). Es werden keine Werbe- oder sonstigen
+        Tracking-Dienste eingesetzt, und es werden keine externen Schriftarten
+        im Browser geladen.
       </p>
 
       <h2>3. Zwecke und Rechtsgrundlagen</h2>
@@ -58,7 +59,9 @@ export default function DatenschutzPage() {
         des Urteils aus Ihrer Eingabe erfolgt, weil Sie die Funktion aktiv
         anfordern; Rechtsgrundlage ist ebenfalls Art. 6 Abs. 1 lit. f DSGVO
         (berechtigtes Interesse an der Bereitstellung der von Ihnen gewünschten
-        Funktion).
+        Funktion). Die anonymisierte Reichweitenmessung stützt sich ebenfalls
+        auf Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Auswertung
+        der Nutzung unserer Website).
       </p>
 
       <h2>4. Hosting (Vercel)</h2>
@@ -70,6 +73,15 @@ export default function DatenschutzPage() {
           vercel.com/legal/privacy-policy
         </a>
         .
+      </p>
+      <p>
+        Zusätzlich nutzen wir <strong>Vercel Web Analytics</strong> zur
+        anonymisierten Reichweitenmessung. Dabei werden keine Cookies gesetzt
+        und keine IP-Adressen gespeichert. Besucher werden über einen Hash aus
+        der Anfrage erkannt, der nach 24 Stunden verworfen wird. Eine
+        Identifizierung einzelner Personen oder ein websiteübergreifendes
+        Tracking ist damit nicht möglich; es werden keine Daten zu Werbezwecken
+        weitergegeben.
       </p>
 
       <h2>5. Übermittlung in die USA (TypeSafe AI / Jev)</h2>

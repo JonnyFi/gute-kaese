@@ -32,6 +32,6 @@ Decision: Score question, `score / 4` normalized to 0–1, threshold 0.5.
 
 ## Deliberately left out
 
-- no share links, image cards, accounts, database or tracking
-- no cookie banner (the site sets no cookies)
-- no analytics
+- no share links, image cards, accounts or database
+- no cookie banner — the site sets no cookies
+- no third-party analytics; only Vercel Web Analytics, which is cookieless and anonymized
