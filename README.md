@@ -47,4 +47,4 @@ Or in the Vercel dashboard: "Add New Project" → import the repo → set the en
 - No share link, no image card, no accounts, no database.
 - Simple best-effort in-memory rate limit per IP, inputs up to 2000 characters.
 - Jev is not officially tested on German; the prompt still gives usable results.
-- Jev can be manipulated by cleverly worded input. Fine for a toy.
+- Jev can be manipulated by cleverly worded input.
